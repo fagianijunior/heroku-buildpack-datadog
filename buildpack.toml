@@ -1,0 +1,21 @@
+api = "0.5"
+
+[buildpack]
+id = "fagianijunior/datadog"
+version = "0.0.1"
+name = "Datadog Agent Buildpack"
+homepage = "https://github.com/fagianijunior/heroku-buildpack-datadog"
+description = "Install the datadog agent to your build."
+keywords = ["datadog"]
+
+[[buildpack.licenses]]
+type = "MIT"
+
+[[stacks]]
+id = "heroku-18"
+
+[[stacks]]
+id = "heroku-20"
+
+[[stacks]]
+id = "io.buildpacks.stacks.bionic"
