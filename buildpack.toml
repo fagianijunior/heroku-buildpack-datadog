@@ -2,7 +2,7 @@ api = "0.5"
 
 [buildpack]
 id = "fagianijunior/datadog"
-version = "0.0.2"
+version = "0.0.3"
 name = "Datadog Agent Buildpack"
 homepage = "https://github.com/fagianijunior/heroku-buildpack-datadog"
 description = "Install the datadog agent to your build."

@@ -4,12 +4,11 @@
 DELETE_PACKAGES=(kubernetes lxml openstack pysnmp_mibs pyVim pyVmomi cm_client)
 
 # Fail fast
-set -x
 set -e
 set -o pipefail
 
 # Debug
-# set -x
+set -x
 
 # Set agent pinned version
 DD_AGENT_PINNED_VERSION_6="6.44.0-1"
@@ -17,9 +16,12 @@ DD_AGENT_PINNED_VERSION_7="7.44.0-1"
 
 # Parse and derive params
 BUILD_DIR=$1
-CACHE_DIR=$2
+CACHE_DIR=/tmp/cache/
 ENV_DIR=$3
 BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
+cp -r $BUILDPACK_DIR /tmp/buildpackdir/
+BUILDPACK_DIR=/tmp/buildpackdir/
+ls $BUILDPACK_DIR
 
 # Store which STACK we are running on in the cache to bust the cache if it changes
 if [ -f $CACHE_DIR/.apt/STACK ]; then
