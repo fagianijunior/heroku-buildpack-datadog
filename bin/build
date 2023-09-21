@@ -16,12 +16,11 @@ DD_AGENT_PINNED_VERSION_7="7.44.0-1"
 
 # Parse and derive params
 BUILD_DIR=$1
-CACHE_DIR=/tmp/cache/
+CACHE_DIR=/app/cache
 ENV_DIR=$3
 BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
-cp -r $BUILDPACK_DIR /tmp/buildpackdir/
-BUILDPACK_DIR=/tmp/buildpackdir/
-ls $BUILDPACK_DIR
+cp -r $BUILDPACK_DIR /app/buildpackdir
+BUILDPACK_DIR=/app/buildpackdir
 
 # Store which STACK we are running on in the cache to bust the cache if it changes
 if [ -f $CACHE_DIR/.apt/STACK ]; then
@@ -173,6 +172,7 @@ apt-get $APT_OPTIONS -y --force-yes -d install --reinstall --no-install-recommen
 DPKG_STUB="$APT_CACHE_DIR/archives/${PACKAGE_NAME}_1%3a"
 if [ -z $DD_AGENT_VERSION ]; then
   DEB=$(ls -t "$DPKG_STUB"*.deb | head -n 1)
+  cp $DEB /workspace
   DD_AGENT_VERSION=${DEB:${#DPKG_STUB}:(${#DEB}-${#DPKG_STUB}-10)}
   echo "Latest version is \"$DD_AGENT_VERSION\". To pin this version, run: heroku config:set DD_AGENT_VERSION=$DD_AGENT_VERSION" | indent
 else
